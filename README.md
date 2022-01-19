@@ -11,5 +11,7 @@ module "bastionwithnlb"{
     instance_profile                      = "abcddddd"
     key_name                              = "public-key"
     security_id                           = subnet-eddcdzz4
+    subnet_private_name                   = "private-subnet-1"
+    subnet_public_name                    = "public*"
 }
 ```
