@@ -1,4 +1,7 @@
 output "private_ip" {
-  value = aws_instance.bastion.private_ip
+  value = module.bastionwithnlb.private_ip
+}
 
+output "nlb" {
+  value = module.bastionwithnlb.nlbdns
 }
