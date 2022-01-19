@@ -44,3 +44,9 @@ variable "ports" {
     }
   }
 }
+variable "subnet_private_name" {
+  type = string
+}
+variable "subnet_public_name" {
+  type = string
+}

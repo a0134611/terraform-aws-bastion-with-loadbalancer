@@ -28,17 +28,16 @@ data "aws_vpc" "selected" {
   id = var.vpc_id
 }
 
-data "aws_subnet" "private" {
+data "aws_subnet_ids" "private" {
   vpc_id = var.vpc_id
-  filter {
-    name   = "tag:Name"
-    values = ["prvt-subnet-1"]
+  tags = {
+    Name = var.subnet_private_name
   }
 }
 data "aws_subnet_ids" "public" {
   vpc_id = var.vpc_id
 
   tags = {
-    Name = "pub*"
+    Name = var.subnet_public_name
   }
 }

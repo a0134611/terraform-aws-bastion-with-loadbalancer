@@ -5,7 +5,7 @@ resource "aws_instance" "bastion" {
   instance_type           = var.ec2_instance_size
   monitoring              = true
   vpc_security_group_ids  = [var.security_id]
-  subnet_id               = data.aws_subnet.private.id
+  subnet_id               = tolist(data.aws_subnet_ids.private.ids)[0]
   disable_api_termination = var.ec2_root_volume_delete_on_termination
   iam_instance_profile    = var.instance_profile
   tags = {
@@ -73,9 +73,6 @@ resource "aws_lb_target_group" "lbtg" {
     aws_lb.nlb
   ]
 
-  lifecycle {
-    create_before_destroy = true
-  }
 }
 
 resource "aws_lb_target_group_attachment" "tgattach" {
@@ -93,7 +90,7 @@ resource "aws_instance" "bastion1" {
   instance_type           = var.ec2_instance_size
   monitoring              = true
   vpc_security_group_ids  = [var.security_id]
-  subnet_id               = data.aws_subnet.private.id
+  subnet_id               = tolist(data.aws_subnet_ids.private.ids)[0]
   disable_api_termination = var.ec2_root_volume_delete_on_termination
   iam_instance_profile    = var.instance_profile
   tags = {
