@@ -20,7 +20,7 @@ variable "ec2_root_volume_type" {
   description = "The type of data storage: standard, gp2, io1"
 }
 variable "ec2_root_volume_delete_on_termination" {
-  default     = true
+  default     = false
   description = "Delete the root volume on instance termination."
 }
 variable "vpc_id" {
