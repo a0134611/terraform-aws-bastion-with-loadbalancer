@@ -77,7 +77,6 @@ resource "aws_lb_target_group" "lbtg" {
 
 resource "aws_lb_target_group_attachment" "tgattach" {
   for_each = var.ports
-
   target_group_arn = aws_lb_target_group.lbtg[each.key].arn
   target_id        = aws_instance.bastion.id
   port             = each.value.target_port
