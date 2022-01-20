@@ -1,10 +1,19 @@
 terraform {
+
+  backend "remote" {
+    hostname     = "app.terraform.io"
+    organization = "DevopsCommunity"
+    workspaces {
+      name = "TerraformBastion"
+    }
+  }
   required_providers {
     aws = {
       source  = "hashicorp/aws"
       version = "~> 3.0"
     }
   }
+
 }
 
 provider "aws" {

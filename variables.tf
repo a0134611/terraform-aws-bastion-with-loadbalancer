@@ -32,6 +32,9 @@ variable "instance_profile" {
 variable "security_id" {
   type = string
 }
+variable "env" {
+  type = string
+}
 variable "ports" {
   type = map(object({
     target_port = number

@@ -6,4 +6,5 @@ module "bastionwithnlb" {
   security_id         = var.security_id
   subnet_private_name = var.subnet_private_name
   subnet_public_name  = var.subnet_public_name
+  env="dev"
 }

@@ -10,8 +10,8 @@ resource "aws_instance" "bastion" {
   iam_instance_profile    = var.instance_profile
   tags = {
     Terraform   = "true"
-    Environment = "${terraform.workspace}"
-    Name        = "Bastion-${terraform.workspace}"
+    Environment = "${var.env}"
+    Name        = "Bastion-${var.env}"
   }
   root_block_device {
     encrypted             = true
@@ -19,7 +19,7 @@ resource "aws_instance" "bastion" {
     volume_size           = var.ec2_root_volume
     delete_on_termination = var.ec2_root_volume_delete_on_termination
     tags = {
-      Name = "bastion-${terraform.workspace}-root-block"
+      Name = "bastion-${var.env}-root-block"
     }
   }
 }
@@ -31,7 +31,7 @@ resource "null_resource" "status" {
   depends_on = [aws_instance.bastion]
 }
 resource "aws_lb" "nlb" {
-  name                             = "nlb-${terraform.workspace}"
+  name                             = "nlb-${var.env}"
   internal                         = false
   load_balancer_type               = "network"
   subnets                          = data.aws_subnet_ids.public.ids
@@ -39,7 +39,7 @@ resource "aws_lb" "nlb" {
   enable_deletion_protection       = false
 
   tags = {
-    Environment = "${terraform.workspace}"
+    Environment = "${var.env}"
   }
   depends_on = [aws_instance.bastion]
 }
@@ -63,7 +63,7 @@ resource "aws_lb_listener" "nlblisten" {
 resource "aws_lb_target_group" "lbtg" {
   for_each = var.ports
 
-  name     = "bastion-${terraform.workspace}-tg"
+  name     = "bastion-${var.env}-tg"
   port     = each.value.target_port
   protocol = each.value.protocol
   vpc_id   = var.vpc_id

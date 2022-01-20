@@ -38,6 +38,9 @@ variable "subnet_private_name" {
 variable "subnet_public_name" {
   type = string
 }
+variable "env" {
+  type = string
+}
 variable "ports" {
   type = map(object({
     target_port = number
