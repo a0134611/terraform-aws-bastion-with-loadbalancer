@@ -82,29 +82,3 @@ resource "aws_lb_target_group_attachment" "tgattach" {
   target_id        = aws_instance.bastion.id
   port             = each.value.target_port
 }
-
-
-resource "aws_instance" "bastion1" {
-  ami                     = data.aws_ami.ubuntu.id
-  key_name                = var.key_name
-  instance_type           = var.ec2_instance_size
-  monitoring              = true
-  vpc_security_group_ids  = [var.security_id]
-  subnet_id               = tolist(data.aws_subnet_ids.private.ids)[0]
-  disable_api_termination = var.ec2_root_volume_delete_on_termination
-  iam_instance_profile    = var.instance_profile
-  tags = {
-    Terraform   = "true"
-    Environment = "${terraform.workspace}"
-    Name        = "Bastion1-${terraform.workspace}"
-  }
-  root_block_device {
-    encrypted             = true
-    volume_type           = var.ec2_root_volume_type
-    volume_size           = var.ec2_root_volume
-    delete_on_termination = var.ec2_root_volume_delete_on_termination
-    tags = {
-      Name = "bastion1-${terraform.workspace}-root-block"
-    }
-  }
-}
