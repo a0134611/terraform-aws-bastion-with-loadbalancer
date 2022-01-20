@@ -1,6 +1,6 @@
 variable "key_name" {
   default     = "bastion-pub"
-  description = "keyname"
+  description = "Bastion Server required key pair name, please share key name"
   type        = string
 }
 
@@ -25,15 +25,19 @@ variable "ec2_root_volume_delete_on_termination" {
 }
 variable "vpc_id" {
   type = string
+  description = "The Load Balancer and Bastion server required VPC ID "
 }
 variable "instance_profile" {
   type = string
+  description = "Bastion Server Required Instance Profile Name"
 }
 variable "security_id" {
   type = string
+  description = "Bastion Server required security group ID"
 }
 variable "env" {
   type = string
+  description = "Type here env variable like dev, stg, uat .."
 }
 variable "ports" {
   type = map(object({
@@ -49,7 +53,9 @@ variable "ports" {
 }
 variable "subnet_private_name" {
   type = string
+  description = "Bastion Server launched in Private subnet , so please share private subnet Name"
 }
 variable "subnet_public_name" {
   type = string
+  description = "Network Load Balancer launched in Public subnet , so please share Public Name for filter like Pub*"
 }
